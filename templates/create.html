@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en" class="h-100">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.108.0">
+    <title>Create</title>
+    <link rel="stylesheet" href="/static/create.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/cover/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      .cover-container{
+        background-image: url('/static/background.jpg');
+        background-attachment: fixed;
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="cover.css" rel="stylesheet">
+  </head>
+  <body class="d-flex h-100 text-center text-bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        {%include 'nav.html'%}
+    <br>
+    <main class="px-3">
+        <section id="create">
+  
+            <h1 style="font: size 100px;">Create a Dish</h1>
+            
+            <div class="create-wrapper">
+            
+            <!-- Left create page --> 
+              
+            <!-- Left create page --> 
+              
+            <form id="create-form" class="form-horizontal" role="form">
+                <textarea class="form-control" rows="10" placeholder="Ingredients:                                              1. Eggs                                                   2. Love" name="ingredients" required style="padding:20px; width: 360px; padding-left:50px"></textarea>
+                <textarea class="form-control" rows="10" placeholder="Directions:                                              1. Boil water                                            2. Add salt" name="directions" required style="padding:20px; width: 360px; padding-left:50px"></textarea>
+
+              </form>
+
+              <form id="create-form" class="form-horizontal" role="form">
+                <div class="form-group">
+                  <div class="col-sm-12" style="padding:20px">
+                    <input type="text" class="form-control" id="name" placeholder="Dish Name" name="name" value="" required>
+                  </div>
+                </div>
+          
+                <div class="form-group">
+                  <div class="col-sm-12" style="padding:20px">
+                    <input type="text" class="form-control" id="country" placeholder="Country of origin" name="email" value="" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-12" style="padding:20px">
+                      <input type="text" class="form-control" id="name" placeholder="Time to make" name="time" value="" required>
+                    </div>
+                  </div>
+
+                  <br><br><br>
+                  <h6 style="font: size 50px;">Upload an image of your dish  (Optional)</h6>
+
+                  <div class="form-group">
+                    <div class="col-sm-12" style="padding:20px">
+                      <input type="file" class="form-control" id="file" placeholder="Image" name="image" value="">
+                    </div>
+                  </div>
+
+                <br><br>
+                <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white">Submit</a>
+              </form>
+              
+            </div>
+            
+          </section>            
+    </main>
+
+        {%include 'footer.html'%}
+    </div>
+  </body>
+</html>
