@@ -23,14 +23,14 @@
       }
 
       .cover-container{
-        background-image: url('/static/background.jpg');
+        background-image: url('/static/avacado.jpg');
         background-attachment: fixed;
       }
     </style>
     <!-- Custom styles for this template -->
     <link href="cover.css" rel="stylesheet">
   </head>
-  <body class="d-flex h-100 text-center text-bg-dark">
+  <body class="d-flex h-100 text-center text-bg-dark" style="height:100%; padding-bottom: 0px">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         {%include 'nav.html'%}
     <br>
@@ -46,8 +46,10 @@
             <!-- Left create page --> 
               
             <form id="create-form" class="form-horizontal" role="form">
-                <textarea class="form-control" rows="10" placeholder="Ingredients:                                              1. Eggs                                                   2. Love" name="ingredients" required style="padding:20px; width: 360px; padding-left:50px"></textarea>
-                <textarea class="form-control" rows="10" placeholder="Directions:                                              1. Boil water                                            2. Add salt" name="directions" required style="padding:20px; width: 360px; padding-left:50px"></textarea>
+                <br>
+                <textarea style="height:200px; width:330px;" class="form-control" rows="10" placeholder="Ingredients:                                              1. Eggs                                                   2. Love" name="ingredients" required style="padding:20px; width: 360px; padding-left:50px"></textarea>
+                <br>
+                <textarea style="height:200px; width:330px;" class="form-control" rows="10" placeholder="Directions:                                              1. Boil water                                            2. Add salt" name="directions" required style="padding:20px; width: 360px; padding-left:50px"></textarea>
 
               </form>
 
@@ -70,7 +72,7 @@
                     </div>
                   </div>
 
-                  <br><br><br>
+                  <br><br>
                   <h6 style="font: size 50px;">Upload an image of your dish  (Optional)</h6>
 
                   <div class="form-group">
@@ -79,7 +81,7 @@
                     </div>
                   </div>
 
-                <br><br>
+                <br>
                 <a href="#" class="btn btn-lg btn-light fw-bold border-white bg-white">Submit</a>
               </form>
               
