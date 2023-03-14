@@ -1,14 +1,6 @@
 from sqlalchemy import create_engine, text
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
-host=os.getenv("HOST")
-db=os.getenv("DATABASE")
-user=os.getenv("USER")
-password=os.getenv("PASSWORD")
-
-credentials = "mysql+pymysql://" + user + ":" + password + "@" + host + "/" + db + "?charset=utf8mb4"
+credentials = "mysql+pymysql://jdas3sptw9rruv3swudv:pscale_pw_WabFoSBA7eTz9RHNEuIa0cammWk6mVruKNGYoc4Cso3@us-east.connect.psdb.cloud/chef?charset=utf8mb4"
 engine = create_engine(credentials, connect_args={
     "ssl": {
         "ssl_ca": "/etc/ssl/cert.pem"
