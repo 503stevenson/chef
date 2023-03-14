@@ -1,5 +1,4 @@
 Flask
 gunicorn
 sqlalchemy
-os
 dotenv
