@@ -1,4 +1,4 @@
-**DIGITAL COOKBOOK
+**DIGITAL COOKBOOK TO SHARE AND EXPLORE NEW DISHES
 
 Python, Flask, MySQL database, SQLAlchemy, Javascript, HTML, CSS
 
