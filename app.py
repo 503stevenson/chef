@@ -1,14 +1,49 @@
-from flask import Flask, flash, redirect, render_template, jsonify, request
+import boto3
+import os
+from flask import Flask, redirect, render_template, jsonify, request
 from database import load_all_dishes, add_dish
+from werkzeug.utils import secure_filename
 
 #variables
 formStepOne = False
 Ingredientdata = False
 error = False
 
+#aws
+s3 = boto3.client(
+    "s3",
+    aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
+    aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
+)
+
+#Methods
+def handleImage(image):
+    if image:
+        filename = secure_filename(image.filename)
+        try:
+            s3.upload_fileobj(
+                image,
+                os.getenv("AWS_BUCKET_NAME"),
+                filename,
+                ExtraArgs={
+                    "ACL": "public-read",
+                    "ContentType": image.content_type
+                }
+            )
+
+        except Exception as e:
+            # This is a catch all exception, edit this part to fit your needs.
+            print("Something Happened: ", e)
+            return e
+    
+
+        # after upload file to s3 bucket, return filename of the uploaded file
+        return image.filename
+    
 #app
 app = Flask(__name__)
 
+#Routes
 @app.route("/")
 def home():
     return render_template('home.html')
@@ -35,7 +70,10 @@ def postDish():
     global Ingredientdata
     global formStepOne
     global error
+    filename = handleImage(request.files['file'])
+    print(filename)
     newDish = request.form.to_dict()
+    newDish['image'] = filename
 
     if Ingredientdata != False and Ingredientdata != None and formStepOne:
         newDish['ingredients'] = Ingredientdata['ingredients']

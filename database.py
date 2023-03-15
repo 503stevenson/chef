@@ -1,6 +1,13 @@
 from sqlalchemy import create_engine, text
+from dotenv import load_dotenv
+import os
 
-credentials = "mysql+pymysql://jdas3sptw9rruv3swudv:pscale_pw_WabFoSBA7eTz9RHNEuIa0cammWk6mVruKNGYoc4Cso3@us-east.connect.psdb.cloud/chef?charset=utf8mb4"
+load_dotenv()
+user=os.getenv('USER')
+password=os.getenv('PASSWORD')
+host=os.getenv('HOST')
+
+credentials = "mysql+pymysql://" + user + ":" +  password + "@" + host + "/chef?charset=utf8mb4"
 engine = create_engine(credentials, connect_args={
     "ssl": {
         "ssl_ca": "/etc/ssl/cert.pem"
@@ -31,9 +38,8 @@ def add_dish(dish):
         ingredients=dish['ingredients']
         directions=dish['directions']
         image=dish['image']
-        values = '\'' + dishName + '\', \'' + cookTime + '\', \'' + country + '\', \'' + ingredients + '\', \'' + directions + '\''
-        query = text("INSERT INTO dishes(dishName, cookTime, country, ingredients, directions) VALUES(" + values + ")")
+        values = '\'' + dishName + '\', \'' + cookTime + '\', \'' + country + '\', \'' + ingredients + '\', \'' + directions + '\', \'' + image + '\''
+        query = text("INSERT INTO dishes(dishName, cookTime, country, ingredients, directions, image) VALUES(" + values + ")")
 
         conn.execute(query)
     
-print(load_all_dishes())
