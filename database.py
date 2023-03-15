@@ -1,8 +1,10 @@
 from sqlalchemy import create_engine, text
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
+if os.getenv('WHEREAMI') == 'local':
+    from dotenv import load_dotenv
+    load_dotenv()
+    
 user=os.getenv('USER')
 password=os.getenv('PASSWORD')
 host=os.getenv('HOST')
