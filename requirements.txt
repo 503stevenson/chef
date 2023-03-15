@@ -3,3 +3,4 @@ gunicorn
 sqlalchemy
 pymysql
 boto3
+dotenv
