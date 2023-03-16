@@ -1,7 +1,7 @@
 import boto3
 import os
 from flask import Flask, redirect, render_template, jsonify, request
-from database import load_all_dishes, add_dish
+from database import load_all_dishes, add_dish, load_dishes_by_country, load_dishes_by_ingredient, load_dishes_by_country_and_ingredient
 from werkzeug.utils import secure_filename
 
 #variables
@@ -92,6 +92,21 @@ def explore():
     dishes = load_all_dishes()
     return render_template('explore.html', dishes=dishes)
 
+@app.route("/dishes", methods=['POST'])
+def showDishes():
+    parameters = request.form.to_dict()
+    
+    if parameters['country'] != "" and parameters['ingredient'] != "":
+        dishes = load_dishes_by_country_and_ingredient(parameters['country'], parameters['ingredient'])
+        return jsonify(dishes)
+
+    elif parameters['country'] != "":
+        dishes = load_dishes_by_country(parameters['country'])
+        return jsonify(dishes)
+    elif parameters['ingredient'] != "":
+        dishes = load_dishes_by_ingredient(parameters['ingredient'])
+        return jsonify(dishes)
+    
 #json page to view dishes
 @app.route("/api/dishes")
 def list_dishes():
