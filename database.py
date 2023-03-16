@@ -16,10 +16,42 @@ engine = create_engine(credentials, connect_args={
     }
 })
 
-#METHODS
+#METHODS      
 def load_all_dishes():
     with engine.connect() as conn:
         result=conn.execute(text('select * from dishes'))
+
+        records = []
+        mapping = {0: 'id', 1: 'dishName', 2: 'cookTime', 3: 'country', 4: 'ingredients', 5: 'directions', 6: 'image'} 
+        for row in result.all():
+            i = 0
+            record = {}
+            for item in row:
+                record[mapping[i]] = item
+                i+= 1
+            records.append(record)
+    return records
+
+def load_dishes_by_country(country):
+    query = 'select * from dishes where country=\'' + country + '\''
+    with engine.connect() as conn:
+        result = conn.execute(text(query))
+
+        records = []
+        mapping = {0: 'id', 1: 'dishName', 2: 'cookTime', 3: 'country', 4: 'ingredients', 5: 'directions', 6: 'image'} 
+        for row in result.all():
+            i = 0
+            record = {}
+            for item in row:
+                record[mapping[i]] = item
+                i+= 1
+            records.append(record)
+    return records
+
+def load_dishes_by_ingredient(ingredient):
+    query = 'select * from dishes where ingredients like \'%' + ingredient + '%\''
+    with engine.connect() as conn:
+        result = conn.execute(text(query))
 
         records = []
         mapping = {0: 'id', 1: 'dishName', 2: 'cookTime', 3: 'country', 4: 'ingredients', 5: 'directions', 6: 'image'} 
