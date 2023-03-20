@@ -16,7 +16,7 @@ s3 = boto3.client(
     aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
 )
 
-#Methods
+#AWS Image Handler
 def handleImage(image):
     if image:
         filename = secure_filename(image.filename)
@@ -90,6 +90,8 @@ def postDish():
 @app.route("/explore")
 def explore():
     dishes = load_all_dishes()
+    for dish in dishes:
+        dish['url'] = "https://503stevensonchef.s3.us-east-2.amazonaws.com/" + dish['image']
     return render_template('explore.html', dishes=dishes)
 
 @app.route("/dishes", methods=['POST'])
@@ -98,14 +100,15 @@ def showDishes():
     
     if parameters['country'] != "" and parameters['ingredient'] != "":
         dishes = load_dishes_by_country_and_ingredient(parameters['country'], parameters['ingredient'])
-        return jsonify(dishes)
-
     elif parameters['country'] != "":
         dishes = load_dishes_by_country(parameters['country'])
-        return jsonify(dishes)
     elif parameters['ingredient'] != "":
         dishes = load_dishes_by_ingredient(parameters['ingredient'])
-        return jsonify(dishes)
+    else:
+        dishes = load_all_dishes()
+    for dish in dishes:
+        dish['url'] = "https://503stevensonchef.s3.us-east-2.amazonaws.com/" + dish['image']
+    return render_template('explore.html', dishes=dishes)
     
 #json page to view dishes
 @app.route("/api/dishes")
