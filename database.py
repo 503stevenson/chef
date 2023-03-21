@@ -92,5 +92,3 @@ def add_dish(dish):
         query = text("INSERT INTO dishes(dishName, cookTime, country, ingredients, directions, image) VALUES(" + values + ")")
 
         conn.execute(query)
-    
-load_dishes_by_country_and_ingredient('Canada', 'love')

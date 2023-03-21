@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Explore</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/popup.css">
     <style>  body{
       min-height: 100vh;
       background-image: url('/static/avacado.jpg');
@@ -12,6 +13,9 @@
     }
     </style>
   </head>
+  <script>
+    var popup;
+  </script>
   <body class="d-flex h-100 text-center text-bg-dark">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         {%include 'nav.html'%}
@@ -34,7 +38,31 @@
             <span>
               <div style="text-align: left;">
                 <img src={{dish['url']}} alt="Image not found" onerror="this.src='static/egg.jpg';" width="400" height="300" style="border-radius:30px; margin-left:50px">
-                <button style="margin-left:300px;" class="btn btn-lg btn-light fw-bold border-white bg-white">View Details</button>
+                <button style="margin-left:300px;" class="btn btn-lg btn-light fw-bold border-white bg-white" onclick='document.getElementById("{{loop.index}}").classList.add("open-popup")'>View Details</button>
+                <div class="popup row" id={{loop.index}}>
+                  <h1 style="margin-top: 20px">{{dish['dishName']}}</h1>
+                  <div class="column">
+                    <div class="directionList">
+                      <br>
+                      <h8>Country: {{dish['country']}}</h8>
+                    </div>
+                    <div class="directionList">
+                      <h8>Time to make: {{dish['cookTime']}}</h8>
+                    </div>
+                    <div class="ingredientList">
+                      <h3>Ingredients:</h3>
+                      {{dish['ingredients']}}
+                    </div>
+                    <div class="directionList">
+                      <h2>Directions:</h2>
+                      {{dish['directions']}}
+                    </div>
+                  </div>
+                  <div class="column" style="text-align: center">
+                    <img src={{dish['url']}} alt="Image not found" onerror="this.src='static/egg.jpg';" width="240" height="200" style="border-radius:30px; margin-left:50px"><br>
+                    <button class="btn btn-lg btn-light fw-bold border-white bg-white" onclick="document.getElementById('{{loop.index}}').classList.remove('open-popup')" style="margin-top: 40px; margin-left: 50px">Close</button>
+                  </div>
+                </div>
                 Time to make: {{dish['cookTime']}}
                 <div style="font-size:30px; font-style:oblique; margin-left:50px">
                   {{dish['dishName']}}
