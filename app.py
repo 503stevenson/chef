@@ -20,6 +20,9 @@ s3 = boto3.client(
 def handleImage(image):
     if image:
         filename = secure_filename(image.filename)
+        extension = filename.substringAfter('.')
+        if extension not in ['png', 'jpg']:
+            return None
         try:
             s3.upload_fileobj(
                 image,
@@ -70,8 +73,10 @@ def postDish():
     global Ingredientdata
     global formStepOne
     global error
-    filename = handleImage(request.files['file'])
-    print(filename)
+    if len(request.files) > 0:
+        filename = handleImage(request.files['file'])
+    else:
+        filename = None
     newDish = request.form.to_dict()
     newDish['image'] = filename
 
@@ -81,7 +86,7 @@ def postDish():
         Ingredientdata = False
         formStepOne = False
         add_dish(newDish)
-        return jsonify(newDish)
+        return explore()
     Ingredientdata = False
     formStepOne = False
     error = True
@@ -91,7 +96,10 @@ def postDish():
 def explore():
     dishes = load_all_dishes()
     for dish in dishes:
-        dish['url'] = "https://503stevensonchef.s3.us-east-2.amazonaws.com/" + dish['image']
+        if dish['image'] == None:
+            dish['url'] = 'static/lemon.jpg'
+        else:
+            dish['url'] = "https://503stevensonchef.s3.us-east-2.amazonaws.com/" + dish['image']
     return render_template('explore.html', dishes=dishes)
 
 @app.route("/dishes", methods=['POST'])
@@ -107,7 +115,10 @@ def showDishes():
     else:
         dishes = load_all_dishes()
     for dish in dishes:
-        dish['url'] = "https://503stevensonchef.s3.us-east-2.amazonaws.com/" + dish['image']
+        if dish['image'] == None:
+            dish['url'] = 'static/background.jpg'
+        else:
+            dish['url'] = "https://503stevensonchef.s3.us-east-2.amazonaws.com/" + dish['image']
     return render_template('explore.html', dishes=dishes)
     
 #json page to view dishes
