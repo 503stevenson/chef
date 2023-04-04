@@ -20,7 +20,7 @@ s3 = boto3.client(
 def handleImage(image):
     if image:
         filename = secure_filename(image.filename)
-        extension = filename.substringAfter('.')
+        extension = filename[len(filename) - 3:]
         if extension not in ['png', 'jpg']:
             return None
         try:
