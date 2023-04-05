@@ -16,7 +16,7 @@ s3 = boto3.client(
     aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
 )
 
-#AWS Image Handler
+#AWS Image Handle
 def handleImage(image):
     if image:
         filename = secure_filename(image.filename)
